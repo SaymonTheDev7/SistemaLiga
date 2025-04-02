@@ -78,9 +78,6 @@ public class Club {
     public String toString() {
         return "\nID do clube " + getIdClub() +
                "\nNome do clube " + getName() +
-               "\nData de fundação " + getDateFoundation() +
-               "\nLigas " + getLeagues() +
-               "\nJogadores " + getPlayers() +
-               "\nTreinador " + getTrainer();
+               "\nData de fundação " + getDateFoundation();
     }
 }

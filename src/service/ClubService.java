@@ -3,6 +3,7 @@ import model.Club;
 import connection.BankConnection;
 import model.League;
 import model.Player;
+import model.Trainer;
 
 import java.sql.*;
 
@@ -41,6 +42,30 @@ public class ClubService {
         return club;
     }
 
+    public static Club searchClubPerId(int idClub) throws SQLException {
+        String sql = "SELECT * FROM club WHERE idClub = ?"; // Correção do nome da coluna
+
+        try (Connection connection = BankConnection.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idClub);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Trainer trainer = new Trainer();
+                    trainer.setIdTrainer(rs.getInt("trainer"));
+
+                    return new Club(
+                            rs.getInt("idClub"),
+                            rs.getString("name"),
+                            rs.getString("dateFoundation"),
+                            trainer
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
     public static void saveClubLeague (int idClub, int idLeague) throws SQLException {
         String sql = "INSERT INTO club_league (idClub, idLeague) VALUES (?, ?)";
 
@@ -52,13 +77,13 @@ public class ClubService {
         }
     }
 
-    public static void saveClubPlayer (int idClub, int idLeague) throws SQLException {
-        String sql = "INSERT INTO club_player (idClub, idLeague) VALUES (?,?)";
+    public static void saveClubPlayer (int idClub, int idPlayer) throws SQLException {
+        String sql = "INSERT INTO club_player (idClub, idPlayer) VALUES (?,?)";
 
         try (Connection connection = BankConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, idClub);
-            ps.setInt(2, idLeague);
+            ps.setInt(2, idPlayer);
             ps.executeUpdate();
         }
     }
@@ -74,5 +99,4 @@ public class ClubService {
             ps.executeUpdate();
         }
     }
-
 }

@@ -1,10 +1,10 @@
 package service;
-
 import connection.BankConnection;
 import model.Club;
 import model.Trainer;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainerService {
 
@@ -26,5 +26,60 @@ public class TrainerService {
             }
         }
         return trainer;
+    }
+
+    public static void deleteTrainer (int idTrainer) throws SQLException {
+        String sql = "DELETE FROM trainer WHERE idTrainer = ?";
+
+        try (Connection connection = BankConnection.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idTrainer);
+            ps.executeUpdate();
+
+        }
+    }
+
+    public static Trainer searchTrainerPerId(int idTrainer) throws SQLException {
+        String sql = "SELECT * FROM trainer WHERE idTrainer = ?";
+
+        try (Connection connection = BankConnection.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idTrainer);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Club club = new Club();
+                    club.setIdClub(rs.getInt("club"));
+
+                    return new Trainer(
+                            rs.getInt("idTrainer"),
+                            rs.getInt("experience"),
+                            rs.getString("name"),
+                            club
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
+    public static List<Trainer> getAllTrainers() throws SQLException {
+        String sql = "SELECT * FROM trainer";
+        List<Trainer> trainers = new ArrayList<>();
+
+        try (Connection connection = BankConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                trainers.add(new Trainer(
+                        rs.getInt("idTrainer"),
+                        rs.getInt("experience"),
+                        rs.getString("name"),
+                        null
+                ));
+            }
+        }
+        return trainers;
     }
 }
