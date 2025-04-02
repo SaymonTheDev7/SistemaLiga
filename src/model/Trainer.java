@@ -22,6 +22,10 @@ public class Trainer {
         this.club = club;
     }
 
+    public Trainer() {
+
+    }
+
     public int getIdTrainer() {
         return idTrainer;
     }

@@ -23,6 +23,10 @@ public class Player {
         this.position = position;
     }
 
+    public Player() {
+
+    }
+
     public Club getClub() {
         return club;
     }

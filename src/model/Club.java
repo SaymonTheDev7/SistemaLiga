@@ -11,21 +11,13 @@ public class Club {
     private List<Player> players;
     private Trainer trainer;
 
-    public Club(int idClub, String name, String dateFoundation, List<League> leagues, List<Player> players, Trainer trainer) {
+    public Club(int idClub, String name, String dateFoundation, Trainer trainer) {
         this.idClub = idClub;
         this.name = name;
         this.dateFoundation = dateFoundation;
-        this.leagues = leagues;
-        this.players = players;
         this.trainer = trainer;
     }
-
-    public Club(String name, String dateFoundation, List<League> leagues, List<Player> players, Trainer trainer) {
-        this.name = name;
-        this.dateFoundation = dateFoundation;
-        this.leagues = leagues;
-        this.players = players;
-        this.trainer = trainer;
+    public Club () {
     }
 
     public int getIdClub() {

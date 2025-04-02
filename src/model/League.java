@@ -22,6 +22,10 @@ public class League {
         this.clubs = clubs;
     }
 
+    public League() {
+
+    }
+
     public int getIdLeague() {
         return idLeague;
     }
