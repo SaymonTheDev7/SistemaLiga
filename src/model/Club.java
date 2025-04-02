@@ -17,7 +17,14 @@ public class Club {
         this.dateFoundation = dateFoundation;
         this.trainer = trainer;
     }
-    public Club () {
+
+    public Club(String name, String dateFoundation) {
+        this.name = name;
+        this.dateFoundation = dateFoundation;
+    }
+
+    public Club() {
+
     }
 
     public int getIdClub() {

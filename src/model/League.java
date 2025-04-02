@@ -5,25 +5,23 @@ import java.util.List;
 public class League {
 
     private int idLeague;
-    private int foundationYear;
+    private String foundationYear;
     private String name;
     private List<Club> clubs;
 
-    public League(int idLeague, int foundationYear, String name, List<Club> clubs) {
+    public League(int idLeague, String foundationYear, String name, List<Club> clubs) {
         this.idLeague = idLeague;
         this.foundationYear = foundationYear;
         this.name = name;
         this.clubs = clubs;
     }
 
-    public League(int foundationYear, String name, List<Club> clubs) {
+    public League(String foundationYear, String name) {
         this.foundationYear = foundationYear;
         this.name = name;
-        this.clubs = clubs;
     }
 
     public League() {
-
     }
 
     public int getIdLeague() {
@@ -34,11 +32,11 @@ public class League {
         this.idLeague = idLeague;
     }
 
-    public int getFoundationYear() {
+    public String getFoundationYear() {
         return foundationYear;
     }
 
-    public void setFoundationYear(int foundationYear) {
+    public void setFoundationYear(String foundationYear) {
         this.foundationYear = foundationYear;
     }
 
