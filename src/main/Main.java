@@ -143,6 +143,6 @@ public class Main {
         Club club = ClubService.searchClubPerId(idClub);
         Trainer trainer = new Trainer(experience, nameTrainer, club);
         return trainer;
-        
+
     }
 }
