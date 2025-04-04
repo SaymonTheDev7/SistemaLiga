@@ -6,6 +6,8 @@ import model.Player;
 import model.Trainer;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClubService {
 
@@ -98,5 +100,50 @@ public class ClubService {
             ps.setInt(2, idClub);
             ps.executeUpdate();
         }
+    }
+
+    public static void deleteClub(int idClub) throws SQLException {
+        String sql = "DELETE FROM club WHERE idClub = ?";
+
+        try (Connection connection = BankConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, idClub);
+            ps.executeUpdate();
+        }
+    }
+
+    public static Club updateClub(Club club) throws SQLException {
+        String sql = "UPDATE club SET name = ?, dateFoundation = ? WHERE idClub = ?";
+
+        try (Connection connection = BankConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, club.getName());
+            ps.setString(2, club.getDateFoundation());
+            ps.setInt(3, club.getIdClub());
+            ps.executeUpdate();
+        }
+        return club;
+    }
+
+    public List <Club> getAllClubs() throws SQLException {
+        String sql = "SELECT * FROM club";
+        List<Club> clubs = new ArrayList<>();
+
+        try (Connection connection = BankConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                clubs.add(new Club(
+                        rs.getInt("idClub"),
+                        rs.getString("name"),
+                        rs.getString("dateFoundation"),
+                        null
+                ));
+            }
+        }
+        return clubs;
     }
 }
