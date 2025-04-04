@@ -127,7 +127,7 @@ public class ClubService {
         return club;
     }
 
-    public List <Club> getAllClubs() throws SQLException {
+    public static List <Club> getAllClubs() throws SQLException {
         String sql = "SELECT * FROM club";
         List<Club> clubs = new ArrayList<>();
 

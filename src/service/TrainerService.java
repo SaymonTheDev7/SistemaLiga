@@ -48,8 +48,7 @@ public class TrainerService {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Club club = new Club();
-                    club.setIdClub(rs.getInt("club"));
+                    Club club = ClubService.searchClubPerId(rs.getInt("club"));
 
                     return new Trainer(
                             rs.getInt("idTrainer"),
@@ -72,14 +71,21 @@ public class TrainerService {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                trainers.add(new Trainer(
-                        rs.getInt("idTrainer"),
-                        rs.getInt("experience"),
-                        rs.getString("name"),
-                        null
-                ));
+                int idTrainer = rs.getInt("idTrainer");
+                int experience = rs.getInt("experience");
+                String name = rs.getString("name");
+                int idClub = rs.getInt("club");
+
+                Club club = null;
+                if (idClub != 0) {
+                    club = ClubService.searchClubPerId(idClub);
+                }
+
+                Trainer trainer = new Trainer(idTrainer, experience, name, club);
+                trainers.add(trainer);
             }
         }
         return trainers;
     }
+
 }

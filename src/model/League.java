@@ -9,11 +9,10 @@ public class League {
     private String name;
     private List<Club> clubs;
 
-    public League(int idLeague, String foundationYear, String name, List<Club> clubs) {
+    public League(int idLeague, String foundationYear, String name) {
         this.idLeague = idLeague;
         this.foundationYear = foundationYear;
         this.name = name;
-        this.clubs = clubs;
     }
 
     public League(String foundationYear, String name) {
